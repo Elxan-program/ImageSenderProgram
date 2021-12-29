@@ -18,7 +18,7 @@ namespace ImageSenderProgram.ViewModel
     {
         public RelayCommand a { get; set; }
         public List<Images> images { get; set; }
-        public string Path { get; set; }
+        public string IPath { get; set; }
         static TcpListener listener = null;
         static BinaryWriter bw = null;
         static BinaryReader br = null;
@@ -32,7 +32,7 @@ namespace ImageSenderProgram.ViewModel
             {
                 Task.Run(() =>
                 {
-                    var ip = IPAddress.Parse("192.168.1.103");
+                    var ip = IPAddress.Parse("192.168.1.67");
                     var ep = new IPEndPoint(ip, 27001);
                     listener = new TcpListener(ep);
                     listener.Start();
@@ -53,12 +53,12 @@ namespace ImageSenderProgram.ViewModel
                                 {
                                     bytes = br.ReadBytes(count: 5000000);
                                     var msg = br.ReadString();
-                                    Path = Helper.GetImagePath(buffer: bytes, counter: count);
+                                    IPath = Helper.GetImagePath(buffer: bytes, counter: count);
                                     break;
                                 }
                                 App.Current.Dispatcher.Invoke(() =>
                                 {
-                                    mainWindow.myListView.Items.Add(new Images { ImagePath = Path });
+                                    mainWindow.myListView.Items.Add(new Images { ImagePath = IPath });
                                 });
                             });
                         });

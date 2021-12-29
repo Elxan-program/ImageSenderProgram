@@ -18,19 +18,11 @@ namespace Client.ViewModel
     {
         public RelayCommand SelectBtnCommand { get; set; }
         public RelayCommand SendBtnCommand { get; set; }
-
-
         byte[] b;
-
-
         public MainViewModel(MainWindow mainWindow)
         {
-
-
-
             SelectBtnCommand = new RelayCommand((sender) =>
             {
-
                 try
                 {
                     var open = new Microsoft.Win32.OpenFileDialog();
@@ -45,19 +37,11 @@ namespace Client.ViewModel
                 {
                     MessageBox.Show(ex.Message);
                 }
-
-
-
-
-
-
-
-
             });
             SendBtnCommand = new RelayCommand((sender) =>
             {
                 var client = new TcpClient();
-                var ip = IPAddress.Parse("192.168.1.103");
+                var ip = IPAddress.Parse("192.168.1.67");
                 var port = 27001;
                 var ep = new IPEndPoint(ip, port);
                 try
@@ -69,15 +53,11 @@ namespace Client.ViewModel
                         {
                             while (true)
                             {
-
                                 var stream = client.GetStream();
                                 var bw = new BinaryWriter(stream);
                                 bw.Write(b);
                             };
                         });
-
-
-
                     }
                     else
                     {
